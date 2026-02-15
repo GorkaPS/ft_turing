@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import sys
 import json
-
+from tools import *
 # tape []
 # head = 0
 # state
@@ -15,11 +15,20 @@ def main():
 		print("uso: python3 main.py jsonfile input")
 		print("Numero de argumentos:", len(sys.argv))
 		return
+	for i,arg in enumerate(sys.argv):
+		if len(arg) == 0:
+			print(f"Argumento {i} inválido, string vacío.")
+			return
 	json_file = sys.argv[1]
 	f_input = sys.argv[2]
 	data = read_json(json_file)
 	if not parse_json(data, f_input):
-		return 
+		return
+	tape = list(f_input)
+	index = 0
+	print_orders = format_transitions(data["transitions"])
+	#draw_json(data, print_orders)
+	draw(tape, index, print_orders[('scanright', '.')], data["blank"])
 	
 
 def parse_json(file, input):

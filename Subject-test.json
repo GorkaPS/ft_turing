@@ -1,7 +1,7 @@
 {
   "name" : "unary_sub",
   "alphabet": [ "0", ".", "-", "=", "A" ],
-  "blank" : "0",
+  "blank" : ".",
   "states" : [ "scanright", "eraseone", "subone", "skip", "HALT" ],
   "initial" : "scanright",
   "finals" : [ "HALT" ],
