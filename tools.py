@@ -77,8 +77,13 @@ def draw_json(data):
 
 def draw(tape, index, trans_value, blank):
 	tape_cpy = tape.copy()
-	tape_cpy.insert(index, "<")
-	tape_cpy.insert(index+2, ">")
+	if index < 0:
+		tape_cpy.insert(0, "<")
+		tape_cpy.insert(1, blank)
+		tape_cpy.insert(2, ">")
+	else:
+		tape_cpy.insert(index, "<")
+		tape_cpy.insert(index+2, ">")
 	tape_str = "".join(tape_cpy)
 	if len(tape_str) < 22:
 		tape_str += blank * (22 - len(tape_str))
