@@ -3,17 +3,22 @@
 #def write_pos():
 
 #def move_pos(direction):
-def format_transitions(data):
-	transitions_map = {}
-	for state_name, transitions_list in data.items():
-		for t in transitions_list:
-			key = (state_name, t["read"])
-			#print (key)
-			value = f"({state_name}, {t['read']}) -> ({t['to_state']}, {t['write']}, {t['action']})"
-			transitions_map[key] = value
-	return transitions_map
+# def format_transitions(data):
+# 	transitions_map = {}
+# 	for state_name, transitions_list in data.items():
+# 		for t in transitions_list:
+# 			key = (state_name, t["read"])
+# 			#print (key)
+# 			value = f"({state_name}, {t['read']}) -> ({t['to_state']}, {t['write']}, {t['action']})"
+# 			transitions_map[key] = value
+# 	return transitions_map
 
-def draw_json(data,map):	
+def format_transition(transition, state):
+	
+	value = f"({state}, {transition['read']}) -> ({transition['to_state']}, {transition['write']}, {transition['action']})"
+	return value
+
+def draw_json(data):	
 	print(f"\n***************** {data['name']} *******************\n")
 
 	print(f"Alphabet: {data['alphabet']}")
@@ -22,8 +27,9 @@ def draw_json(data,map):
 	print(f"Finals: {data['finals']}\n")
 
 	print ("INSTRUCTIONS:")
-	for i in map:
-		print(map[i])
+	for state_name, transitions_list in data["transitions"].items():
+		for t in transitions_list:
+			print(format_transition(t, state_name))
 	print("\n***********************************************\n")
 
 def draw(tape, index, trans_value, blank):

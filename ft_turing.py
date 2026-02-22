@@ -2,6 +2,7 @@
 import sys
 import json
 from tools import *
+from algorithm import execute
 # tape []
 # head = 0
 # state
@@ -26,9 +27,8 @@ def main():
 		return
 	tape = list(f_input)
 	index = 0
-	print_orders = format_transitions(data["transitions"])
-	#draw_json(data, print_orders)
-	draw(tape, index, print_orders[('scanright', '.')], data["blank"])
+	draw_json(data)
+	execute(index, tape, data)
 	
 
 def parse_json(file, input):
