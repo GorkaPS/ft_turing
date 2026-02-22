@@ -1,17 +1,56 @@
-#def read_pos():
+import json
 
-#def write_pos():
+def read_json(path):
+	try:
+		if (path[-5:].lower() != ".json"):
+			raise ValueError("Formato de archivo invalido")
+		with open(path, "r", encoding="utf-8") as f:
+			return json.load(f)
+	except FileNotFoundError:
+		print(f"Error: no existe el archivo {path}")
+	except PermissionError:
+		print(f"Error: sin permisos para {path}")
+	return None
 
-#def move_pos(direction):
-# def format_transitions(data):
-# 	transitions_map = {}
-# 	for state_name, transitions_list in data.items():
-# 		for t in transitions_list:
-# 			key = (state_name, t["read"])
-# 			#print (key)
-# 			value = f"({state_name}, {t['read']}) -> ({t['to_state']}, {t['write']}, {t['action']})"
-# 			transitions_map[key] = value
-# 	return transitions_map
+def parse_json(file, input):
+	required = ["name","alphabet","blank","states","initial","finals","transitions"]
+	missing = [key for key in required if key not in file or not file[key]]
+	if missing:
+		print("Faltan claves o valores:", missing)
+		return False
+	if file["initial"] not in file["states"]:
+		print (f"initial state {file['initial']} not in states")
+		return False
+	for f in file["finals"]:
+		if f not in file["states"]:
+			print(f"Final '{f}' not in states values")
+			return False
+	for f in file["transitions"]:
+		if f not in file["states"]:
+			print(f"Transition value {f} not in states values")
+			return False
+	for f in file["alphabet"]:
+		if len(f) != 1:
+			print ("Alphabet characters' length can't be bigger than 1")
+			return False
+	if (file["blank"] not in file["alphabet"]):
+		print(f"Blank value: {file['blank']} is not in alphabet")
+		return False
+	if (file["blank"] in input):
+		print(f"Blank value: {file['blank']} can not be in the Input")
+		return False
+	for key, value in file["transitions"].items():
+		for t in value:
+			if t["read"] not in file["alphabet"] or t["write"] not in file["alphabet"]:
+				print ("Read or Write Values not in Alphabet")
+				return False
+			if t["to_state"] not in file["states"]:
+				print ("to_state Value not in states")
+				return False
+			if t["action"] not in ("RIGHT","LEFT"):
+				print ("action value is nor LEFT/RIGHT")
+				return False
+	return True
 
 def format_transition(transition, state):
 	
@@ -40,3 +79,4 @@ def draw(tape, index, trans_value, blank):
 	if len(tape_str) < 22:
 		tape_str += blank * (22 - len(tape_str))
 	print(f"[{tape_str}] {trans_value}")
+
