@@ -36,9 +36,13 @@ def parse_json(file, input):
 	if (file["blank"] not in file["alphabet"]):
 		print(f"Blank value: {file['blank']} is not in alphabet")
 		return False
-	if (file["blank"] in input):
-		print(f"Blank value: {file['blank']} can not be in the Input")
-		return False
+	for i in input:
+		if i not in file["alphabet"]:
+			print (f"Input character '{i}' not in alphabet")
+			return False
+	# if (file["blank"] in input):
+	# 	print(f"Blank value: {file['blank']} can not be in the Input")
+	# 	return False
 	for key, value in file["transitions"].items():
 		for t in value:
 			if t["read"] not in file["alphabet"] or t["write"] not in file["alphabet"]:
@@ -48,7 +52,7 @@ def parse_json(file, input):
 				print ("to_state Value not in states")
 				return False
 			if t["action"] not in ("RIGHT","LEFT"):
-				print ("action value is nor LEFT/RIGHT")
+				print ("action value is not LEFT/RIGHT")
 				return False
 	return True
 

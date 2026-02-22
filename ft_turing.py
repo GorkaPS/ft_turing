@@ -19,7 +19,7 @@ def main():
 	data = read_json(json_file)
 	if not parse_json(data, f_input):
 		return
-	tape = list(f_input)
+	tape = list(f_input + data["blank"])
 	index = 0
 	draw_json(data)
 	execute(index, tape, data)

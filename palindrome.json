@@ -1,0 +1,69 @@
+{
+	"name": "palindrome_checker",
+	"alphabet": ["0", "1", "X", ".", "y", "n"],
+	"blank": ".",
+	"states": [
+	  "start",
+	  "check0",
+	  "check1",
+	  "go_right_0",
+	  "go_right_1",
+	  "verify0",
+	  "verify1",
+	  "go_left",
+	  "reject",
+	  "HALT"
+	],
+	"initial": "start",
+	"finals": ["HALT"],
+  
+	"transitions": {
+  
+	  "start": [
+		{ "read": "X", "to_state": "start", "write": "X", "action": "RIGHT" },
+		{ "read": "0", "to_state": "go_right_0", "write": "X", "action": "RIGHT" },
+		{ "read": "1", "to_state": "go_right_1", "write": "X", "action": "RIGHT" },
+		{ "read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT" }
+	  ],
+  
+	  "go_right_0": [
+		{ "read": "0", "to_state": "go_right_0", "write": "0", "action": "RIGHT" },
+		{ "read": "1", "to_state": "go_right_0", "write": "1", "action": "RIGHT" },
+		{ "read": "X", "to_state": "verify0", "write": "X", "action": "LEFT" },
+		{ "read": ".", "to_state": "verify0", "write": ".", "action": "LEFT" }
+	  ],
+  
+	  "go_right_1": [
+		{ "read": "0", "to_state": "go_right_1", "write": "0", "action": "RIGHT" },
+		{ "read": "1", "to_state": "go_right_1", "write": "1", "action": "RIGHT" },
+		{ "read": "X", "to_state": "verify1", "write": "X", "action": "LEFT" },
+		{ "read": ".", "to_state": "verify1", "write": ".", "action": "LEFT" }
+	  ],
+  
+	  "verify0": [
+		{ "read": "X", "to_state": "start", "write": "X", "action": "RIGHT" },
+		{ "read": "0", "to_state": "go_left", "write": "X", "action": "LEFT" },
+		{ "read": "1", "to_state": "reject", "write": "1", "action": "RIGHT" }
+	  ],
+  
+	  "verify1": [
+		{ "read": "X", "to_state": "start", "write": "X", "action": "RIGHT" },
+		{ "read": "1", "to_state": "go_left", "write": "X", "action": "LEFT" },
+		{ "read": "0", "to_state": "reject", "write": "0", "action": "RIGHT" }
+	  ],
+  
+	  "go_left": [
+		{ "read": "0", "to_state": "go_left", "write": "0", "action": "LEFT" },
+		{ "read": "1", "to_state": "go_left", "write": "1", "action": "LEFT" },
+		{ "read": "X", "to_state": "go_left", "write": "X", "action": "LEFT" },
+		{ "read": ".", "to_state": "start", "write": ".", "action": "RIGHT" }
+	  ],
+  
+	  "reject": [
+		{ "read": "0", "to_state": "reject", "write": "0", "action": "RIGHT" },
+		{ "read": "1", "to_state": "reject", "write": "1", "action": "RIGHT" },
+		{ "read": "X", "to_state": "reject", "write": "X", "action": "RIGHT" },
+		{ "read": ".", "to_state": "HALT", "write": "n", "action": "RIGHT" }
+	  ]
+	}
+  }
