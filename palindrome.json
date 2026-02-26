@@ -3,6 +3,7 @@
 	"alphabet": ["0", "1", "X", ".", "y", "n"],
 	"blank": ".",
 	"states": [
+	  "loop",
 	  "start",
 	  "go_right_0",
 	  "go_right_1",
@@ -16,13 +17,19 @@
 	"finals": ["HALT"],
   
 	"transitions": {
+		"start": [
+			{ "read": "X", "to_state": "loop", "write": "X", "action": "RIGHT" },
+			{ "read": "0", "to_state": "go_right_0", "write": "X", "action": "RIGHT" },
+			{ "read": "1", "to_state": "go_right_1", "write": "X", "action": "RIGHT" },
+			{ "read": ".", "to_state": "start", "write": ".", "action": "RIGHT" }
+		],
   
-	  "start": [
-		{ "read": "X", "to_state": "start", "write": "X", "action": "RIGHT" },
+		"loop": [
+		{ "read": "X", "to_state": "loop", "write": "X", "action": "RIGHT" },
 		{ "read": "0", "to_state": "go_right_0", "write": "X", "action": "RIGHT" },
 		{ "read": "1", "to_state": "go_right_1", "write": "X", "action": "RIGHT" },
 		{ "read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT" }
-	  ],
+		],
   
 	  "go_right_0": [
 		{ "read": "0", "to_state": "go_right_0", "write": "0", "action": "RIGHT" },
@@ -39,13 +46,13 @@
 	  ],
   
 	  "verify0": [
-		{ "read": "X", "to_state": "start", "write": "X", "action": "RIGHT" },
+		{ "read": "X", "to_state": "loop", "write": "X", "action": "RIGHT" },
 		{ "read": "0", "to_state": "go_left", "write": "X", "action": "LEFT" },
 		{ "read": "1", "to_state": "reject", "write": "1", "action": "RIGHT" }
 	  ],
   
 	  "verify1": [
-		{ "read": "X", "to_state": "start", "write": "X", "action": "RIGHT" },
+		{ "read": "X", "to_state": "loop", "write": "X", "action": "RIGHT" },
 		{ "read": "1", "to_state": "go_left", "write": "X", "action": "LEFT" },
 		{ "read": "0", "to_state": "reject", "write": "0", "action": "RIGHT" }
 	  ],
@@ -54,7 +61,7 @@
 		{ "read": "0", "to_state": "go_left", "write": "0", "action": "LEFT" },
 		{ "read": "1", "to_state": "go_left", "write": "1", "action": "LEFT" },
 		{ "read": "X", "to_state": "go_left", "write": "X", "action": "LEFT" },
-		{ "read": ".", "to_state": "start", "write": ".", "action": "RIGHT" }
+		{ "read": ".", "to_state": "loop", "write": ".", "action": "RIGHT" }
 	  ],
   
 	  "reject": [
