@@ -1,6 +1,6 @@
 {
-	"name": "Language0n1n_checker",
-	"alphabet": ["0", "1", "X", ".", "y", "n"],
+	"name": "Language02n_checker",
+	"alphabet": ["0", "X", ".", "y", "n"],
 	"blank": ".",
 	"states": [
 		"start",
@@ -20,45 +20,38 @@
 		"start": [
 		{ "read": "X", "to_state": "reject", "write": "X", "action": "RIGHT" },
 		{ "read": "0", "to_state": "go_right", "write": "X", "action": "RIGHT" },
-		{ "read": "1", "to_state": "reject", "write": "1", "action": "RIGHT" },
 		{ "read": ".", "to_state": "start", "write": ".", "action": "RIGHT" }
 		],
   
 		"verify_left": [
 		{ "read": "X", "to_state": "confirm", "write": "X", "action": "RIGHT" },
-		{ "read": "0", "to_state": "go_right", "write": "X", "action": "RIGHT" },
-		{ "read": "1", "to_state": "reject", "write": "1", "action": "RIGHT" }
+		{ "read": "0", "to_state": "go_right", "write": "X", "action": "RIGHT" }
 		],
   
 	  "go_right": [
 		{ "read": "0", "to_state": "go_right", "write": "0", "action": "RIGHT" },
-		{ "read": "1", "to_state": "go_right", "write": "1", "action": "RIGHT" },
 		{ "read": "X", "to_state": "verify_right", "write": "X", "action": "LEFT" },
 		{ "read": ".", "to_state": "verify_right", "write": ".", "action": "LEFT" }
 	  ],
   
 	  "verify_right": [
 		{ "read": "X", "to_state": "reject", "write": "X", "action": "RIGHT" },
-		{ "read": "1", "to_state": "go_left", "write": "X", "action": "LEFT" },
-		{ "read": "0", "to_state": "reject", "write": "0", "action": "RIGHT" }
+		{ "read": "0", "to_state": "go_left", "write": "X", "action": "LEFT" }
 	  ],
   
 	  "go_left": [
 		{ "read": "0", "to_state": "go_left", "write": "0", "action": "LEFT" },
-		{ "read": "1", "to_state": "go_left", "write": "1", "action": "LEFT" },
 		{ "read": "X", "to_state": "verify_left", "write": "X", "action": "RIGHT" },
 		{ "read": ".", "to_state": "verify_left", "write": ".", "action": "RIGHT" }
 	  ],
   
 	  "reject": [
 		{ "read": "0", "to_state": "reject", "write": "0", "action": "RIGHT" },
-		{ "read": "1", "to_state": "reject", "write": "1", "action": "RIGHT" },
 		{ "read": "X", "to_state": "reject", "write": "X", "action": "RIGHT" },
 		{ "read": ".", "to_state": "HALT", "write": "n", "action": "RIGHT" }
 	  ],
 	  "confirm": [
 		{ "read": "0", "to_state": "reject", "write": "0", "action": "RIGHT" },
-		{ "read": "1", "to_state": "reject", "write": "1", "action": "RIGHT" },
 		{ "read": "X", "to_state": "confirm", "write": "X", "action": "RIGHT" },
 		{ "read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT" }
 	  ]

@@ -18,10 +18,10 @@
   
 	"transitions": {
 		"start": [
-			{ "read": "X", "to_state": "loop", "write": "X", "action": "RIGHT" },
-			{ "read": "0", "to_state": "go_right_0", "write": "X", "action": "RIGHT" },
-			{ "read": "1", "to_state": "go_right_1", "write": "X", "action": "RIGHT" },
-			{ "read": ".", "to_state": "start", "write": ".", "action": "RIGHT" }
+		{ "read": "X", "to_state": "reject", "write": "X", "action": "RIGHT" },
+		{ "read": "0", "to_state": "go_right_0", "write": "X", "action": "RIGHT" },
+		{ "read": "1", "to_state": "go_right_1", "write": "X", "action": "RIGHT" },
+		{ "read": ".", "to_state": "start", "write": ".", "action": "RIGHT" }
 		],
   
 		"loop": [
